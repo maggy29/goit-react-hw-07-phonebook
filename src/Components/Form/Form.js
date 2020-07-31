@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import contactsOperations from "../../redux/contacts/contactsOperations";
+import contactsSelectors from "../../redux/contacts/contactsSelectors";
 import { ToastContainer, toast } from "react-toastify";
 import styles from "./Form.module.css";
 import "react-toastify/dist/ReactToastify.css";
@@ -72,7 +73,7 @@ class Form extends Component {
 }
 
 const mapStateToProps = (state) => {
-  return { contacts: state.contacts.items };
+  return { contacts: contactsSelectors.getContacts(state) };
 };
 
 const mapDispatchToProps = {

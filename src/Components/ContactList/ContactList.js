@@ -1,6 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
+import contactsSelectors from "../../redux/contacts/contactsSelectors";
 import Contact from "../Contact/Contact";
 
 function ContactList({ contacts }) {
@@ -24,18 +25,8 @@ ContactList.propTypes = {
   onRemoveContact: PropTypes.func.isRequired,
 };
 
-const mapStateToProps = (state) => {
-  const { items, filter } = state.contacts;
-  const normalizedFilter = filter.toLowerCase();
-  const visibleContacts = items.filter(
-    (contact) =>
-      contact.name.toLowerCase().includes(normalizedFilter) ||
-      contact.number.includes(filter)
-  );
-
-  return {
-    contacts: visibleContacts,
-  };
-};
+const mapStateToProps = (state) => ({
+  contacts: contactsSelectors.getVisibleContacts(state),
+});
 
 export default connect(mapStateToProps)(ContactList);
